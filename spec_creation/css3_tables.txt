@@ -1,0 +1,292 @@
+Relation:              affiliation
+net              1        c8           aS            1-8       unique network identi fie r
+sta              2        c6           a6           10-15      station identifier
+lddate           3       date         a17           17-33      load date
+
+Relation:              arrival
+sta              1         c6         a6           1-6       station code
+time             2          f8      fl7.5         8-24       epoch time
+arid             3          i4        i8         26-33       arrival id
+jdate            4          i4        i8         35-42       julian date
+stassid          5          i4        i8         44-51       stassoc id
+chanid           6          i4        i8         53-60       instrument id
+chan             7         c8         a8         62-69       channel code
+iphase           8         c8         a8         71-78       reported phase
+stype            9         c1         a1         80-80       signal type
+deltim          10         f4       f6.3        82-87       delta time
+azimuth         11          f4       f7.2        89-95       observed azimuth
+delaz           12          f4       f7.2       97-103       delta azimuth
+slow            13          f4       f7.2       105-111      observed slowness (s/deg)
+delslo          14          f4       f7.2       113-119      delta slowness
+ema             15          f4       f7.2      121-127      emergence angle
+rect            16          f4       f7.3      129-135      recti linearity
+amp             17          f4      flO.l       137-146      amplitude, instrument corrected, nm
+per             18          f4       f7.2       148-154      period
+logat          19          f4       f7.2       156-162       log( amp/per)
+clip            20          c1        al        164-164      clipped   flag
+fm              21          c2        a2        166-167       first motion
+snr             22          f4      fl0.2       169-178      signal to noise ratio
+qual            23          c1        a1        180-180      signal onset quality
+auth            24         c15       a15        182-196      source/originator
+commid          25          i4        i8        198-205      comment      id
+lddate          26        date       a17       207-223        load  date
+
+Relation:               assoc
+arid           1           i4             i8           1-8        arrival id
+orid           2            i4             i8          10-17       origin id
+sta            3            c6             a6          19-24       station code
+phase          4            c8             a8          26-33       associated phase
+belief         5            f4            f4.2         35-38       phase confidence
+delta          6            f4            f8.3         40-47       station to event distance
+seaz           7            f4            f7.2         49-55       station to event azimuth
+esaz           8            f4            f7.2         57-63       event to station azimuth
+timeres       9            f4            f8.3         65-72       time residual
+timedef        10           c1             a1          74-74       time = defining, non-defining
+azres          11           f4            f7.1         76-82       azimuth residual
+azdef          12           cl             al          84-84       azimuth = defining, non-defining
+stores         13           f4            f7.2        86-92       slowness residual
+slodef         14           c1             a1          94-94       slowness = defining, non-defining
+emares         15           f4            f7.1        96-102       incidence angle residual
+wgt            16           f4            f6.3        104-109      location weight
+vmodel         17          c15            al5         111-125      velocity model
+conunid        18           i4             ig         127-134      cqmment id
+lddate         19         date            al7         136-152      load date
+
+Relation:              event
+evid            1         i4           i8            1-8         event id
+evname          2         c15          a15           10-24        event name
+prefor         3          i4           i8          26-33         preferred origin
+auth            4         c15          al5           35-49        source/originator
+commid          5          i4           i8           51-58        comment id
+lddate          6         date         al7          60-76         load date
+
+Relation:              gregion
+gm               1         i4          i8             1-8         geographic region number
+gmame            2        c40         a40            10-49        geographic region name
+lddate           3        date        a17            51-67        load date
+
+Relation:                instrument
+inid              1           i4         i8             1-8      instrument id
+insname         2          c50         a50          10-59       instrument name
+instype          3           c6          a6           61-66       instrument type
+band             4           c1          a1           68-68       frequency band
+digital          5           c1          a1           70-70       (d,a) analog
+sarnprate        6            f4       fll.7          72-82       sampling   rate in samples/second
+ncalib           7            f4       fl6.6         84-99       nominal   calibration
+ncalper          8            f4       fl6.6         101-116      nominal calibration period
+dir              9           c64        a64          118-181      directory
+dfile            10          c32        a32          183-214      data file
+rsptype          11           c6         a6          216-221      response type
+lddate           12         date        a17          223-239      load date
+
+Relation:                lastid
+keyname         1          c15         a15           1-15       id name (arid, orid, etc.)
+keyvalue         2           i4          i8          17-24       last value used for that id
+lddate           3          date        a17         26-42        load date
+
+Relation:                  netmag
+magid              1          i4         i8              1-8        network magnitude identifier
+net                2          c8         a8             10-17       unique network identifier
+orid               3           i4        i8             19-26       origin id
+evict              4          i4         i8            28-35        event id
+magtype            5          c6         a6            37-42        magnitude type (ml, ms, mb, etc.)
+nsta               6          i4         i8            44-51        number of stations used
+magnitude          7          f4        f7.2          53-59        magnitude
+uncertainty        8          f4        f7.2          61-67        magnitude uncertainty
+auth               9         c15        a15            69-83        source/originator
+commid             10          i4        i8             85-92       comment id
+lddate             11        date       al7            94-110       load date
+
+Relation:              network
+net             1         c8         a8           1-8           unique network identifier
+netname         2         c80        a80          10-89          network name
+nettype         3          c4         a4          91-94          network type, array, local, world-wide, etc.
+auth            4         ciS        al5         96-110          source/originator
+corrunid        5          i4         i8         112-119         corrunent id
+lddate          6         date       a17         121-137         load date
+
+Relation:             origerr
+Orid           1         i4         i8            1-8          origin id
+sxx            2          f4       fl5.4          10-24         covariance matrix element
+syy            3          f4       f15.4          26-40         covariance matrix element
+szz            4          f4       f15.4          42-56         covariance matrix element
+stt            5          f4       fl5.4          58-72         covariance matrix element
+sxy            6          f4       f15.4          74-88         covariance matrix element
+sxz            7          f4       f15.4         90-104         covariance matrix element
+syz            8          f4       f15.4         106-120        covariance matrix element
+stx            9          f4       f15.4         122-136        covariance matrix element
+sty            10         f4       f15.4         138-152        covariance matrix element
+stz            11         f4       fl5.4         154-168        covariance matrix element
+sdobs          12         f4        f9.4        170-178         std err of obs
+smajax         13         f4        !9.4         180-188        semi-major axis of error
+sminax         14         f4        f9.4         190-198        semi-minor axis of error
+strike         15         f4        f6.2        200-205         strike of the semi-major axis
+sdepth         16         f4        f9.4        207-215         depth error
+stime          17         f4        f8.2        217-224         origin time error
+eonf           18         f4        f5.3        226-230         confidence
+corrunid       19          i4        i8         232-239         corrunent id
+lddate         20        date       a17         241-257         load date
+
+Relation:              origin
+Iat              1         f4         f9.4          1-9         estimated latitude
+Ion              2         f4         f9.4         11-19        estimated longitude
+depth            3         f4         f9.4         21-29        estimated depth
+time             4         f8        fl7.5         31-47        epoch time
+orid             5         i4          i8          49-56        origin id
+evict            6         i4          i8          58-65        event id
+jdate            7         i4          i8          67-74        julian date
+nass             8         i4          i4          76-79        number of associated phases
+ndef             9         i4          i4          81-84        number of locating phases
+ndp             10         i4          i4          86-89        number of depth phases
+gm              11         i4          i8          91-98        geographic region number
+sm              12         i4          i8         100-107       seismic region number
+etype           13         c7          a7         109-115       event type
+depdp          14         f4         f9.4        117-125       estimated depth from depth phases
+dtype           15         c1          a1         127-127       depth method used
+mb              16         f4         f7.2        129-135       body wave magnitude
+mbid            17         i4          i8         137-144       mb magid
+ms              18         f4         f7.2        146-152       surface wav.e magnitude
+msid            19         i4          i8         154-161       ms magid
+ml              20         f4         f7.2        163-169       local magnitude
+mlid            21         i4          i8         171-178       m1 magid
+algorithm       22        ciS         a15         180-194       location algorithm used
+auth            23        c15         a15         196-210       s ourcel originator
+conmlid         24         i4          i8        212-219        comment id
+lddate           25       date        a17         221-237       load date
+
+Relation:               remark
+commid           1         i4         i8          1-8          comment id
+lineno           2         i4         i8         10-17         comment line number
+remark           3        c80        a80         19-98         free format comment
+lddate           4        date       a17        100-116        load date
+
+Relation:               sensor
+sta              1         c6            a6           1-6       station code
+chan             2          c8           a8           8-15      channel code
+time             3          f8         fl7.5         17-33       epoch time of start of recording period
+endtime         4          f8         fl7.5         35-51      epoch time of end of recording period
+inid             5          i4           i8          53-60      instrument id
+chanid           6          i4            i8         62-69       channel id
+jdate            7          i4            i8         71-78       julian date
+calratio         8          f4         fl6.6         80-95      calibration
+calper          9          f4         fl6.6        97-112       calibration period
+tshift           10         f4          f6.2       114-119      correction of data processing time
+instant          11         c1            a1        121-121      (y ,n) discrete/continuing snapshot
+lddatc           12        date          a17        123-139      load date
+
+Relation:               site
+sta              1       c6          a6             1-6        station identifier
+ondate           2        i4          i8            8-15        Julian start date
+offdate          3        i4          i8           17-24        Julian off date
+lat              4        f4          f9.4         26-34        latitude
+lon              5        f4          f9.4         36-44        longitude
+elev             6        f4          f9.4         46-54        elevation
+staname          7       c50          a50         56-105        station description
+statype          8        c4           a4         107-110       station type: single station, virt. array, etc .
+refsta           9        c6           a6         112-117       reference station for array members
+dnorth           10       f4          t9.4        119-127       offset from array reference (km)
+deast           11        f4          t9.4        129-137       offset from array reference (km)
+lddate          12       date         a17         139-155       load date
+
+Relation:              sitechan
+sta              1         c6         a6            1-6        station identifier
+chan             2          c8         a8           8-15       channel identifier
+ondate           3          i4         i8           17-24       Julian start date
+chanid           4          i4         i8          26-33        channel id
+offdate          5          i4         i8           35-42       Julian off date
+ctype            6          c4         a4           44-47       channel type
+edepth           7          f4        f9.4          49-57       emplacement depth
+hang             8          f4        f6.1          59-64       horizontal angle
+vang             9          f4        f6.1         66-71        vertical angle
+descrip         10        cSO        a50          73-122       channel description
+lddate           11       date        al7         124-140       load date
+
+Relation:                  sregion
+sm                1            i4         i8           1-8         seismic region number
+smame             2           c40        a40          10-49        seismic region name
+lddate            3          date        a17         51-67         load date
+
+Relation:                   stamag
+magid                1          i4         i8            1-8         magnitude id
+sta                 2           c6         a6           10-15        station code
+arid                3           i4         i8           17-24        arrival id
+orid                4           i4         i8           26-33        origin id
+evict               5           i4         i8           35-42        event id
+phase               6           c8         a8           44-51        associated phase
+magtype            7           c6         a6           53-58        magnitude type (ml, ms, mb, etc.)
+magnitude           8           f4        f7.2          60-66        magnitude
+uncertainty         9           f4        f7.2          68-74        magnitude uncertainty
+auth               10          c15        a15           76-90        source/originator
+corrunid            11          i4         i8           92-99        comment id
+lddate             12          date       a17          101-117       load date
+
+Relation:                 stassoc
+stassid           1           i4           i8            1-8       stassoc id
+sta               2           c6           a6           10-15      station code
+etype             3           c7           a7           17-23      event type
+location          4          c32          a32          25-56       apparent location description
+dist              5           f4          f7.2         58-64       estimated distance
+azimuth           6           f4          f7.2         66-72       observed azimuth
+Iat               7           f4          f9.4         74-82       estimated latitude
+Ion               8           f4          f9.4          84-92      estimated longitude
+depth             9           f4          f9.4         94-102      estimated depth
+time              10          f8         fl7.5        104-120      estimated origin time
+imb              11           f4          f7.2        122-128      initial estimated mb
+ims              12           f4          f7.2        130-136      initial estimated ms
+iml              13           f4          f7.2        138-144      initial estimated ml
+auth             14          c15          a15         146-160      source/originator
+corrunid         15           i4           i8         162-169      comment id
+lddate           16          date         a17         171-187      load date
+
+Relation:              wfdisc
+sta                1       c6          a6            1-11      station
+chan              2        c8          a8           8-15       channel
+time              3        f8        fl7.5         17-33       epoch time of first sample in file
+wfid              4        i4          i8          35-42       wavefom1 id
+chanid            5        i4          i8          44-51       channel operation id
+jdate             6        i4          i8          53-60       julian date
+endtime          7        f8        fl7.5         62-78       time+(nsamp-1 )/samprate
+nsamp             8        i4          i8          80-87       number of samples
+sarnprate         9        f4        fll.7         89-99       sampling rate in samples/sec
+calib             10       f4        fl6.6        101-116      nominal calibration
+calper           11       f4        fl6.6        118-133      nominal calibration period
+instype           12       c6          a6         135-140      instrument code
+segtype           13       c1          a1         142-142      indexing method
+datatype         14       c2          a2         144-145      numeric storage
+clip              15       cl          a1         147-147      clipped flag
+dir               16      c64         a64         149-212      directory
+dfile             17      c32         a32        214-245       data file
+foff              18       i4         ilO        247-256       byte offset
+commid            19       i4          i8        258-265       comment id
+lddate           20       date        a17        267-283       load date
+
+Relation:              wftag
+tagname        1        c8         a8             1-8        key (arid, orid, evict, etc.)
+tagid           2         i4         i8            10-17       tagname value
+wfid            3         i4         i8           19-26        waveform id
+lddate          4        date       a17           28-44        load date
+
+Relation:            wftape
+sta             1        c6         a6            1-6        station
+chan           2         c8         a8           8-15        channel
+time           3         t13      fl7.5         17-33        t(JUCh time uf first sam(Jle iu file
+wfid           4         i4         i8          35-42        wavefom1 id
+chanid         5         i4         i8          44-51        channel operation id
+jdate          6         i4         i8          53-60       julian date
+endtime        7         f8       fl7.5         62-78       time +(n samp-1 )/ sampra te
+nsamp          8         i4         i8          80-87        number of samples
+samprate      9         f4       fll.7         89-99        sampling rate in samples/sec
+calib         10         f4       fl6.6        101-116       nominal calibration
+calper       11         f4       fl6.6        118-133       nominal calibration period
+instype       12         c6         a6         135-140       instrument code
+segtype       13         c1         a1         142-142       indexing method
+datatype      14        c2         a2         144-145       numeric storage
+clip           15        c1         a1         147-147      clipped flag
+dir           16        c64        a64         149-212      directory
+dfi1e         17        c32        a32        214-245     rlat<~ file
+volname       18         c6         a6        247-252       tape name
+tapefile      19         i4         iS        254-258       tape file number
+tapeblock     20         i4         i5        260-264        block number in tape file
+commid        21         i4         i8        266-273       comment id
+lddate        22        date       a17        275-291        load date
+
