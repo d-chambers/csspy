@@ -36,7 +36,8 @@ def _get_read_fwf_kwargs(spec):
 def file_to_df(path: Union[str, Path], file_type: Optional[str] = None
                ) -> pd.DataFrame:
     """
-    Read a file
+    Read a file's contents into a dataframe.
+
     Parameters
     ----------
     path
@@ -55,7 +56,8 @@ def file_to_df(path: Union[str, Path], file_type: Optional[str] = None
         file_type = path.name.split('.')[-1]
     # get the spec for this file and return dataframe
     kwargs = _get_read_fwf_kwargs(file_type)
-    return pd.read_fwf(path, **kwargs)
+    df = pd.read_fwf(path, **kwargs)
+    return df
 
 
 def _in_rage(df, column, min_value, max_value, func=None):
@@ -207,13 +209,12 @@ def _create_pick(ser):
         time=UTC(ser.time),
         resource_id=rid(ser.arid),
         creation_info=co,
-        waveform_id=wid
+        waveform_id=wid,
     )
     return pick
 
 
 def _create_arrival(ser):
-    pick = get_object(ser.arid)
     origin = get_object(ser.orid)
 
     arrival = oe.Arrival(
@@ -222,11 +223,10 @@ def _create_arrival(ser):
         time_weight=ser.wgt,
         azimuth=ser.esaz,
         phase=ser.phase,
-        distance=ser.delta
+        distance=ser.delta,
     )
 
     origin.arrivals.append(arrival)
-    origin.event.picks.append(pick)
 
 
 def _create_magnitude(ser):
@@ -248,7 +248,7 @@ def _create_magnitude(ser):
         magnitude_type=ser.magtype,
         station_count=ser.nsta,
         creation_info=creation_info,
-        mag_errors=errors
+        mag_errors=errors,
     )
     event.magnitudes.append(magnitude)
 
@@ -264,6 +264,15 @@ def _create_magnitude(ser):
 #     stamag = oe.StationMagnitude(
 #
 #     )
+
+def attach_picks(event):
+    pick_ids = set()
+    for origin in event.origins:
+        for arrival in origin.arrivals:
+            pick_ids.add(arrival.pick_id)
+    picks = sorted([get_object(x.id) for x in pick_ids],
+                   key=lambda x: x.time)
+    event.picks = picks
 
 
 def css_to_catalog(method: Union[dict, str, Path], **kwargs) -> obspy.Catalog:
@@ -294,4 +303,7 @@ def css_to_catalog(method: Union[dict, str, Path], **kwargs) -> obspy.Catalog:
     df_dict['assoc'].apply(_create_arrival, axis=1)
     df_dict['netmag'].apply(_create_magnitude, axis=1)
     # df_dict['stamag'].apply(_create_stationmag, axis=1)
+    # attach pick to catalog
+    for event in events:
+        attach_picks(event)
     return oe.Catalog(events=list(events.values))

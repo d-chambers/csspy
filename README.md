@@ -61,5 +61,3 @@ print(cat)
 cat.plot(projection='local')
 
 ```
-
-

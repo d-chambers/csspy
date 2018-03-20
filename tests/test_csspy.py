@@ -165,6 +165,13 @@ class TestQuickStart:
         except Exception:
             pytest.fail('catalog cannot be displayed')
 
+    def test_unique_picks(self, catalog):
+        """ ensure picks are unique """
+        for event in catalog:
+            picks = event.picks
+            for pick in picks:
+                assert picks.count(pick) < 2
+
     def test_fill_sid_values(self, filled_catalog):
         """ ensure values in wids were filled """
         for wid in get_instances(filled_catalog, oe.WaveformStreamID):
